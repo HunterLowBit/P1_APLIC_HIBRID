@@ -1,4 +1,4 @@
-#  P1_APLIC_HIBRID
+# P1_APLIC_HIBRID
 
 ## MODULOS NPM INSTALDOS
 
@@ -10,10 +10,4 @@
 
 ## EXECUÇÃO
 
-1. ```
-   npm
-   ```
-
-```
-
-```
+1. Intalação de dependencias `npm install`
