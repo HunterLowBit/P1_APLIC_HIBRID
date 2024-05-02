@@ -63,11 +63,11 @@
    ![1714609018799](image/README/1714609018799.png)
 
    Devido a manipulação aberta do banco pela extensão do "MongoDB", facilita a visualização do resultado e quais dados foram gravados
-
    ![1714609149794](image/README/1714609149794.png)
 
    Em caso de tentativa de cadastrar usuário ja existente, o código retorna na requisição com mensagem de erro
    ![1714609312594](image/README/1714609312594.png)
+
    Para finalidade de estudo, o terminal reporta ambas as respostas do servidor
    ![1714609341909](image/README/1714609341909.png)
 
@@ -81,3 +81,23 @@ Como estabelecido anteriormente na execução, todos os comandos executados est�
 
 A criação de cinco rotas básicas para operar as requisições, onde "signup" e "login" operam em pares para adquirir a informação cadastral que deverá ser retornada na interface pelo "GET" e "POST"
 
+![1714612188621](image/README/1714612188621.png)
+Neste segmento, importamos o "Mongoose" para efetuar a conexão com o banco de dados e cadastrar email e senha dos usuários, onde o módulo "bcrypt" armazena a senha em Hash e garante  que seja mais seguro armazenar as senhas. Os parâmetros obrigatórios especificados foram: Email como entrada que não pode se repetir, a senha deve conter mais de oito caracteres, além de ambos os campos serem obrigatórios a serem preenchidos.
+
+O módulo "validator" serve o proposito de gerenciar a validação e erros relacionados ao formato de email, exemplo: Emails que não contem @ na composição.
+
+"userSchema" define a estrutura que o banco de dados deverá seguir, assim como tratamento de erros com os formulário.
+
+![1714613120911](image/README/1714613120911.png)
+Seguimento dedicado a aplicação do "JWT" em conjunto a importação do "User" que está se comunicando ao banco de dados fornecendo a estrutura.
+
+"requireAuth" para efetuar a criação e autenticação do token "JWT" ao verificar a chave secreta se bate com o cadastro do usuário para evitar fraude na manipulação de dados.
+
+"checkUser" funciona em seguida verificando as credencias fornecidas estão de acordo com o token e os dados armazenados em banco, em caso de falha no login ele retornara "nulo" e o usuários não será autenticado.
+
+![1714613714971](image/README/1714613714971.png)
+Por ultimo, herdando as configurações de "User" e "jwt" e configurando as informações tratadas e recebidas pelas rotas, tratando possíveis erros que podem ser mostrados ao usuário durante a execução da aplicação com front-end implementado.
+
+Começando com o tratamento de erros, configurados para exibir no terminal em conjunto com as requisições realizadas e no desenvolvimento fornecer uma visão maior dos possíveis erros.
+
+"login_post" e "signup_post" estão cuidando das credenciais de usuário e seu token de validação, caso falhe em alguma etapa, será relatado pelo tratamento de erros. Recebendo os dados de credenciais e validando para enviar a resposta ao servidor de acordo, caso o usuário ão tenha cadastro, poderá ser encaminhado a efetuar cadastro, ou se possue conta cadastrada, redirecionar a efetuação de login.
