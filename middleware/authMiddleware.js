@@ -30,7 +30,7 @@ const checkUser = (req, res, next) => {
         next();
       } else {
         let user = await User.findById(decodedToken.id);
-        res.locals.user = user;
+        res.locals.user = user.email;
         console.log("[checkUser] res.locals.user", res.locals.user);
         next();
       }
@@ -41,5 +41,6 @@ const checkUser = (req, res, next) => {
     next();
   }
 };
+
 
 module.exports = { requireAuth, checkUser };

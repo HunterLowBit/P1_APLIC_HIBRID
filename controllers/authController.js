@@ -30,9 +30,13 @@ module.exports.signup_get = (req, res) => {
   console.log("[authController] signup_get");
 };
 
-module.exports.login_get = (req, res) => {
+module.exports.login_get = async (req, res) => {
   console.log("[authController] login_get");
+  const user = req.user;
+  res.status(200).json(user);
+  res.send(user);
 };
+
 
 module.exports.signup_post = async (req, res) => {
   const { email, password } = req.body;
@@ -57,6 +61,7 @@ module.exports.login_post = async (req, res) => {
     const user = await User.login(email, password);
     const token = createToken(user._id);
     res.status(200).json({ token });
+    console.log("[authController] login_post token", token);
   } catch (err) {
     const errors = handleErrors(err);
     console.log("[authController] login_post errors", errors);
