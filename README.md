@@ -47,6 +47,7 @@
    ```
 7. Terminal deverá retornar com todas as requisições em formato de log e na requisição retorna o valor processado
    ![1714608483961](image/README/1714608483961.png)
+
    NOTA: Para fins de estudo, o terminal está reportando todas as operações, a versão final devera ser removido o log, assim como a chave de autenticação do MongoDB
 
    ![1714608522890](image/README/1714608522890.png)
