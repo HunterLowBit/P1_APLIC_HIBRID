@@ -8,14 +8,13 @@ const requireAuth = (req, res, next) => {
     const token = authHeader.split(" ")[1];
     jwt.verify(token, "HLBDEV", (err, decodedToken) => {
       if (err) {
-        console.log(err.message);
+        res.status(401).json({ message: "Token is not valid" });
       } else {
-        console.log(decodedToken);
         next();
       }
     });
   } else {
-    console.log("no token");
+    res.status(401).json({ message: "No token, authorization denied" });
   }
 };
 
@@ -25,22 +24,21 @@ const checkUser = (req, res, next) => {
     const token = authHeader.split(" ")[1];
     jwt.verify(token, "HLBDEV", async (err, decodedToken) => {
       if (err) {
-        res.locals.user = null;
-        console.log("[checkUser] res.locals.user", res.locals.user);
-        next();
+        res.status(401).json({ message: "Token is not valid" });
       } else {
         let user = await User.findById(decodedToken.id);
-        res.locals.user = user.email;
-        console.log("[checkUser] res.locals.user", res.locals.user);
-        next();
+        if (!user) {
+          res.status(404).json({ message: "User not found" });
+        } else {
+          res.locals.user = user;
+          next();
+        }
       }
     });
   } else {
-    res.locals.user = null;
-    console.log("[checkUser] res.locals.user", res.locals.user);
-    next();
+    res.status(401).json({ message: "No token, authorization denied" });
   }
 };
 
-
 module.exports = { requireAuth, checkUser };
+// middleware/authMiddleware.js

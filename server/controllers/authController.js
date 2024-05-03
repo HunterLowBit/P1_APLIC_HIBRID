@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const handleErrors = (err) => {
   console.log("[authController] handleErrors", err.message, err.code);
-  let errors = { email: "", password: "" };
+  let errors = {};
 
   if (err.message === "Email Incorreto") {
     errors.email = "Email não cadastrado";
@@ -14,7 +14,7 @@ const handleErrors = (err) => {
   }
 
   if (err.code === 11000) {
-    errors.email = "Email ja cadastrado";
+    errors.email = "Email já cadastrado";
     return errors;
   }
 
@@ -28,15 +28,14 @@ const handleErrors = (err) => {
 
 module.exports.signup_get = (req, res) => {
   console.log("[authController] signup_get");
+  res.status(200).json({});
 };
 
 module.exports.login_get = async (req, res) => {
   console.log("[authController] login_get");
   const user = req.user;
-  res.status(200).json(user);
-  res.send(user);
+  res.status(200).json({ user });
 };
-
 
 module.exports.signup_post = async (req, res) => {
   const { email, password } = req.body;
@@ -67,6 +66,10 @@ module.exports.login_post = async (req, res) => {
     console.log("[authController] login_post errors", errors);
     res.status(400).json({ errors });
   }
+};
+
+module.exports.logout_get = async (req, res) => {
+  // Lógica para logout, se necessário
 };
 
 const createToken = (id) => {
