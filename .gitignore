@@ -87,5 +87,6 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# User
 server/node_modules
 client/node_modules
